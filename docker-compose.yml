@@ -1,0 +1,34 @@
+version: '3'
+services:
+
+  # elastic stack
+  psl-es:
+    image: elasticsearch:alpine
+    ports:
+      - 9200:9200
+  psl-logstash:
+    image: logstash:alpine
+    depends_on:
+      - psl-es
+    # expose: 5959:5959
+    volumes:
+      - ./configs/logstash:/logstash
+    command: logstash -f "/logstash/*.conf"  -w8 --pipeline-batch-size 1000 --auto-reload
+  psl-kibana:
+    image: kibana:alpine
+    environment:
+      ELASTICSEARCH_URL: "http://es:9200"
+
+  # rsyslog
+  psl-rsyslog:
+    image: voxxit/rsyslog:latest
+    # expose: 514:514
+    depends_on:
+      - psl-logstash
+
+  # python project
+  psl-project:
+    image: python:3
+    command: python app.py
+    depends_on:
+      - psl-rsyslog
