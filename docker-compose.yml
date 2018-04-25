@@ -12,10 +12,12 @@ services:
       - psl-es
     # expose: 5959:5959
     volumes:
-      - ./configs/logstash:/logstash
+      - ./logstash:/logstash
     command: logstash -f "/logstash/*.conf"  -w8 --pipeline-batch-size 1000 --auto-reload
   psl-kibana:
-    image: kibana:alpine
+    image: kibana:latest
+    ports:
+      - 5601:5601
     environment:
       ELASTICSEARCH_URL: "http://es:9200"
 
@@ -28,7 +30,10 @@ services:
 
   # python project
   psl-project:
-    image: python:3
-    command: python app.py
+    image: python:3-alpine
+    command: sh -c "pip install -r /root/requirements.txt && python /root/app.py"
+    volumes:
+      - ./project/requirements.txt:/root/requirements.txt
+      - ./project/app.py:/root/app.py
     depends_on:
       - psl-rsyslog

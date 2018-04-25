@@ -21,7 +21,7 @@ CONFIG = {
     },
     'handlers': {
         'console': {
-            'level': 'ERROR',
+            'level': 'WARNING',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
