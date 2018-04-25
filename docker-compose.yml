@@ -10,7 +10,8 @@ services:
     image: logstash:alpine
     depends_on:
       - psl-es
-    # expose: 5959:5959
+    expose:
+      - 5959
     volumes:
       - ./logstash:/logstash
     command: logstash -f "/logstash/*.conf"  -w8 --pipeline-batch-size 1000 --auto-reload
