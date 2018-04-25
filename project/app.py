@@ -4,6 +4,8 @@
 import logging
 from logging.config import dictConfig
 
+import logging.handlers
+
 
 CONFIG = {
     'version': 1,
@@ -30,7 +32,12 @@ CONFIG = {
             'class': 'logging.handlers.SysLogHandler',
             'formatter': 'syslog',
             'facility': 'user',
-            'address': '/dev/log',
+            # for UNIX socket connection:
+            # 'address': '/dev/log',
+            # For TCP/IP connection:
+            'address': ('psl-rsyslog', 514),
+            # for TCP connection (UDP by default):
+            # 'socktype': socket.SOCK_STREAM,
         },
     },
     'loggers': {

@@ -19,12 +19,11 @@ services:
     ports:
       - 5601:5601
     environment:
-      ELASTICSEARCH_URL: "http://es:9200"
+      ELASTICSEARCH_URL: "http://psl-es:9200"
 
   # rsyslog
   psl-rsyslog:
     image: voxxit/rsyslog:latest
-    # expose: 514:514
     depends_on:
       - psl-logstash
 
