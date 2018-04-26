@@ -1,6 +1,10 @@
 version: '3'
 services:
 
+  # redis
+  psl-redis:
+    image: redis:latest
+
   # elastic stack
   psl-es:
     image: elasticsearch:alpine
@@ -10,21 +14,20 @@ services:
     image: logstash:alpine
     depends_on:
       - psl-es
+      - psl-redis
     expose:
       - 5959
     volumes:
       - ./logstash:/logstash
-    command: logstash -f "/logstash/*.conf"  -w8 --pipeline-batch-size 1000 --auto-reload
+    command: logstash -f "/logstash/*.conf" --auto-reload
   psl-kibana:
     image: kibana:latest
+    depends_on:
+      - psl-es
     ports:
       - 5601:5601
     environment:
       ELASTICSEARCH_URL: "http://psl-es:9200"
-
-  # redis
-  psl-redis:
-    image: redis:latest
 
   # rsyslog
   psl-rsyslog:
