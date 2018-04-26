@@ -22,11 +22,15 @@ services:
     environment:
       ELASTICSEARCH_URL: "http://psl-es:9200"
 
+  # redis
+  psl-redis:
+    image: redis:latest
+
   # rsyslog
   psl-rsyslog:
     build: ./rsyslog
     depends_on:
-      - psl-logstash
+      - psl-redis
 
   # python project
   psl-project:
