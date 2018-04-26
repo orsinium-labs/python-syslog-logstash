@@ -24,7 +24,7 @@ services:
 
   # rsyslog
   psl-rsyslog:
-    image: voxxit/rsyslog:latest
+    build: ./rsyslog
     depends_on:
       - psl-logstash
 
