@@ -1,7 +1,7 @@
 
 # Python Syslog Logstash
 
-Demonstration of logging system for Python projects.
+Demonstration of logging system for Python projects. Fast and safe logs collecting.
 
 ## Scheme
 
@@ -31,6 +31,7 @@ Example of one log message from ElasticSearch:
 ```json
 {
   "@timestamp": "2018-04-27T12:18:39.199Z",
+  "@version": "1",
   "message": {
     "name": "app_name",
     "module": "app",
@@ -39,7 +40,6 @@ Example of one log message from ElasticSearch:
     "random_string": "ydrvlhdruj",
     "random_integer": 302
   },
-  "@version": "1",
   "facility_label": "user",
   "facility": "1",
   "hostname": "pythonsysloglogstash_psl-project_1.pythonsysloglogstash_default",
