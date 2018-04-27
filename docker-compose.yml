@@ -34,6 +34,7 @@ services:
       - psl-redis
     volumes:
       - ./rsyslog/logs/:/var/log/
+      - ./rsyslog/rsyslog.conf:/etc/rsyslog.conf
 
   # python project
   psl-project:
