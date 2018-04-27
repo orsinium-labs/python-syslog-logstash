@@ -11,15 +11,13 @@ services:
     ports:
       - 9200:9200
   psl-logstash:
-    image: logstash:alpine
+    image: blacktop/logstash:latest
     depends_on:
       - psl-es
       - psl-redis
-    expose:
-      - 5959
     volumes:
-      - ./logstash:/logstash
-    command: logstash -f "/logstash/*.conf" --auto-reload
+      - ./logstash/logstash.conf:/etc/logstash/conf.d/logstash.conf
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
   psl-kibana:
     image: kibana:latest
     depends_on:
@@ -34,6 +32,8 @@ services:
     build: ./rsyslog
     depends_on:
       - psl-redis
+    volumes:
+      - ./rsyslog/logs/:/var/log/
 
   # python project
   psl-project:
