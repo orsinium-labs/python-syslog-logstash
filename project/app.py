@@ -12,12 +12,14 @@ CONFIG = {
     'disable_existing_loggers': True,
     'formatters': {
         'simple': {
-            'format': '{levelname:8} {asctime} {module}:{lineno} {message}',  # noQA
+            'format': '{levelname:8} {asctime} {module}:{lineno} {message}',
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'syslog': {
-            # format to json (https://github.com/madzak/python-json-logger)
+            # additional data for log:
+            'format': '%(name)s %(module)s %(lineno)s %(message)s',
+            # format to json (https://github.com/madzak/python-json-logger):
             'class': 'pythonjsonlogger.jsonlogger.JsonFormatter',
         },
     },
