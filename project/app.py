@@ -13,13 +13,14 @@ CONFIG = {
     'formatters': {
         'simple': {
             'format': '{levelname:8} {asctime} {module}:{lineno} {message}',
-            'style': '{',
+            'style': '{',  # only for python>=3.3
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'syslog': {
             # additional data for log:
             'format': '%(name)s %(module)s %(lineno)s %(message)s',
-            # format to json (https://github.com/madzak/python-json-logger):
+            # format to json (https://github.com/madzak/python-json-logger)
+            # Use '()' instead of 'class' for python2
             'class': 'pythonjsonlogger.jsonlogger.JsonFormatter',
         },
     },
