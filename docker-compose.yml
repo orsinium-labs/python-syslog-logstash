@@ -32,6 +32,9 @@ services:
     build: ./rsyslog
     depends_on:
       - psl-redis
+    ports:
+      - 514:514
+      - 514:514/udp
     volumes:
       - ./rsyslog/logs/:/var/log/
       - ./rsyslog/rsyslog.conf:/etc/rsyslog.conf
